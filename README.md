@@ -65,7 +65,7 @@ ATS source files with the proper icon, ex. in file browser pane of editor tab.
   * Check the directory `$HOME/.icons` exists. If it don't, create it.
   * Check if there is a or are theme folder(s) in the directory.
   * If there are theme folders, then copy `ats.svg` in each of the `scalable`
-    subdirectory of these them folders. If there are no them folders, then
+    subdirectory of these theme folders. If there are no theme folders, then
     copy `ats.svg` right in `$HOME/.icons`. CHECKME: could this be an option
     to always copy `ats.svg` right in `$HOME/.icons` even if there are
     specific theme folders?
