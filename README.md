@@ -1,5 +1,3 @@
-# ats2-language-support
-
 ATS2 language support and integration
 =====================================
 
@@ -9,9 +7,9 @@ Installation on Linux environments
 Not all parts are mandatory, so you may proceed with the only one you want,
 as much as with all of the ones. Available parts are:
 
-  * ATS Language definition
-  * ATS source file MIME type
-  * ATS source file MIME type icon
+  * ATS2 Language definition
+  * ATS(2) source file MIME type
+  * ATS(2) source file MIME type icon
   * A variant of the Solarized Dark theme as a bonus
 
 The Linux environment is supposed to honnour the *Freedesktop* standard and
@@ -22,10 +20,10 @@ the system directories (to avoid interference with packages management).
 
 ### Installing the language definition
 
-This will provide syntax colourization in *GtkSourceView* based editors.
+This will provide syntax colourization in *GtkSourceView* based editors 
+(ex. Gedit or Medit or Anjuta, are exemples of such).
 
-  * Close any opened *GtkSourceView* based editor (ex. Gedit or Medit or
-    Anjuta, are exemples of such)
+  * Close any opened *GtkSourceView* based editor.
   * Check the directory `$HOME/.local/share/gtksourceview-3.0/language-specs/`
     exists. If it don't, create it. Copy the file `ats.lang` into your
     `$HOME/.local/share/gtksourceview-3.0/language-specs/`.
@@ -41,7 +39,6 @@ have to copy the file there too if you use this editor.
 ### Installing the MIME type
 
 This will make your file browser aware of ATS(2) source files type.
-
 
   * Check the directory `$HOME/.local/share/mime/packages` exists. If it
     don't, create it. Copy the file `ats.xml` into your
@@ -99,6 +96,6 @@ This will provide you a slightly modified *Solarized Dark* color scheme for
 language files). You will probably have to copy the file there too if you use
 this editor.
 
-**Hint:** the reasons why the modifications to the *Solarized Dark* theme, and
-which ones, were made and why it may be good (or not) to you, are explained in
-the file `solarized-dark-alt.xml` it‑self.
+The reasons why the modifications to the *Solarized Dark* theme, and which 
+ones, were made and why it may be good (or not) to you, are explained in the 
+file `solarized-dark-alt.xml` it‑self.
