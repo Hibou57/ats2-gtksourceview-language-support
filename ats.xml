@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+	<mime-type type="text/x-ats">
+      <sub-class-of type="text/plain"/>
+		<comment xml:lang="en">ATS program source</comment>
+		<comment xml:lang="fr">Source de programme ATS</comment>
+		<icon name="ats"/>
+      <magic priority="60">
+         <match type="string" value="mode: ats" offset="0:160">
+         </match>
+         <match type="string" value="mode:ats" offset="0:160">
+         </match>
+      </magic>
+      <glob pattern="*.sats"/>
+      <glob pattern="*.dats"/>
+      <glob pattern="*.hats"/>
+      <glob pattern="*.cats"/>
+      <glob pattern="*.ats"/>
+	</mime-type>
+</mime-info>
+

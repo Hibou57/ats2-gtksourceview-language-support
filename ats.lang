@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- -*-coding:utf-8; mode:xml; indent-tabs-mode:nil; c-basic-offset:2;-*- -->
+
+<!--
+  This is a GtkSourceView language definition file for ATS2.
+  Author: Yannick Duchêne <yannick_duchene@yahoo.fr>
+  Created: 2014
+  Updated: 2015
+
+  The language definition was tested with a modified version of a
+  Solarized Dark theme, so it may provides a better experience with this
+  colour scheme than with another (while it should be OK with another).
+
+  The colourization is not perfect: some issues may be addressable, some others
+  can't be. If a big or anoying enough issue is encountered, please tell me
+  at the e-mail address given above, so that I may try to solve it for you
+  (I can't promise anything thought).
+
+  A special issue is with filenames not following “#include” on the same line.
+  This is displayed as an error and is most likely to not be fixed as it's
+  more common to write the filename next to “#include” on the same line.
+
+  Note the language ID and language name are “ats” and “ATS” although this
+  language definition is for ATS2.
+-->
+
+<language id="ats" _name="ATS" version="2.0" _section="Sources">
+
+  <metadata>
+    <property name="block-comment-end">*)</property>
+    <property name="block-comment-start">(*</property>
+    <property name="globs">*.sats;*.dats;*.hats;*.cats;*.ats</property>
+    <property name="line-comment-start">//</property>
+    <property name="mimetypes">text/x-ats</property>
+  </metadata>
+
+  <styles>
+    <style id="character"    _name="Character Literal"     map-to="def:character"/>
+    <style id="comment"      _name="Comment"               map-to="def:comment"/>
+    <style id="constant"     _name="Predefined Constant"   map-to="def:constant"/>
+    <style id="error"        _name="Errorneous Token"      map-to="def:error"/>
+    <style id="escaped"      _name="Escaped Character"     map-to="def:special-char"/>
+    <style id="file"         _name="File Name"             map-to="def:string"/>
+    <style id="float"        _name="Floating Point Number" map-to="def:floating-point"/>
+    <style id="int"          _name="Integer Number"        map-to="def:decimal"/>
+    <style id="keyword"      _name="Language Keyword"      map-to="def:keyword"/>
+    <style id="name"         _name="Entity Name"           map-to="def:identifier"/>
+    <style id="operator"     _name="Operator"              map-to="def:builtin"/>
+    <style id="preprocessor" _name="Preprocessor"          map-to="def:preprocessor"/>
+    <style id="punctuator"   _name="Punctuator"            map-to="def:statement"/>
+    <style id="reference"    _name="In-Comment Reference"  map-to="def:doc-comment-element"/>
+    <style id="string"       _name="String Literal"        map-to="def:string"/>
+    <style id="type"         _name="Type Name"             map-to="def:type"/>
+  </styles>
+
+  <keyword-char-class>[_a-zA-Z0-9$'@*+-]</keyword-char-class>
+
+  <definitions>
+
+    <!--
+      Meaning of the short names of the regex defined below:
+
+      name: names of function, type and variable
+      op:   operator symbols (approximately for some cases)
+      tag:  the tags found in `-<>` and `:<>`
+      od:   octal digit
+      dd:   decimal digit
+      hd:   hexadecimal digit
+      hp:   hexadecimal prefix character (without the heading zero)
+      ec:   escaped character encodable as slash + letter
+      z:    the special `@` and its alias `0` (substitutable in names)
+      u:    the unsigned postfix for integers
+      l:    the long (or long-long) variant postfix for integers
+      ul:   combination of u and/or l.
+
+      Note: some other regexs are defined at other places. The ones defined
+      here are just the most noticeable.
+    -->
+
+    <define-regex id="name">[_a-zA-Z][_a-zA-Z0-9$']*</define-regex>
+    <define-regex id="op">[~\-+*:=!^$#/?&amp;&gt;&lt;]{1,3}</define-regex>
+    <define-regex id="tag">[a-z01]*</define-regex>
+    <define-regex id="od">[0-7]</define-regex>
+    <define-regex id="dd">[0-9]</define-regex>
+    <define-regex id="de">[Ee]</define-regex>
+    <define-regex id="hd">[0-9A-Fa-f]</define-regex>
+    <define-regex id="hp">[xX]</define-regex>
+    <define-regex id="ec">[abfnrtv\\'"?({[]</define-regex>
+    <define-regex id="z">[@0]</define-regex>
+    <define-regex id="u">[uU]</define-regex>
+    <define-regex id="l">[lL]{1,2}</define-regex>
+    <define-regex id="ul">\%{u}?\%{l}?|\%{l}?\%{u}?</define-regex>
+
+    <define-regex id="name-of-type">[_a-zA-Z][_a-zA-Z0-9@$']*</define-regex>
+
+    <!-- Comments -->
+    <!-- ================================================================= -->
+
+    <context id="reference" extend-parent="false" style-ref="reference" class="no-spell-check">
+      <start>\[</start>
+      <end>\]</end>
+    </context>
+
+    <context id="in-comment">
+      <include>
+        <context ref="reference"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="comment-inline-c" end-at-line-end="true" style-ref="comment">
+      <start>//</start>
+      <include>
+        <context ref="in-comment"/>
+      </include>
+    </context>
+
+    <context id="comment-multiline-c" style-ref="comment">
+      <start>\/\*</start>
+      <end>\*\/</end>
+      <include>
+        <context ref="in-comment"/>
+      </include>
+    </context>
+
+    <context id="comment-multiline-ml" style-ref="comment">
+      <start>\(\*</start>
+      <end>\*\)</end>
+      <include>
+        <context ref="in-comment"/>
+        <context ref="comment-multiline-ml"/>
+        <context ref="comment-multiline-c"/>
+      </include>
+    </context>
+
+    <context id="comment-rest-of-file" style-ref="comment">
+      <start>////</start>
+      <include>
+        <context ref="in-comment"/>
+      </include>
+    </context>
+
+    <context id="comments" class="spell-check">
+      <include>
+        <context ref="comment-rest-of-file"/>
+        <context ref="comment-inline-c"/>
+        <context ref="comment-multiline-ml"/>
+        <context ref="comment-multiline-c"/>
+      </include>
+    </context>
+
+    <!-- Strings -->
+    <!-- ================================================================= -->
+
+    <context id="string-eol-error" style-ref="error">
+      <start>[^"]+$</start>
+    </context>
+
+    <define-regex id="escaped-good" extended="true">
+      \\\%{ec}|\\\%{od}{3}|\\\%{hp}\%{hd}{2}
+    </define-regex>
+
+    <define-regex id="escaped-bad" extended="true">
+      \\\%{od}{1,2}|\\\%{hp}\%{hd}{0,1}|\\.
+    </define-regex>
+
+    <context id="string-character" once-only="true">
+      <match>(\%{escaped-good})|(\%{escaped-bad})|([^\\"])</match>
+      <include>
+        <context sub-pattern="1" style-ref="escaped"/>
+        <context sub-pattern="2" style-ref="error"/>
+        <context sub-pattern="3" style-ref="string"/>
+      </include>
+    </context>
+
+    <context id="character-content-good" once-only="true">
+      <match>(\%{escaped-good})|(\%{escaped-bad})|([^'])</match>
+      <include>
+        <context sub-pattern="1" style-ref="character"/>
+        <context sub-pattern="2" style-ref="error"/>
+        <context sub-pattern="3" style-ref="character"/>
+      </include>
+    </context>
+
+    <context id="character-content-bad" once-only="true">
+      <match>[^']+</match>
+      <include>
+        <context sub-pattern="0" style-ref="error"/>
+      </include>
+    </context>
+
+    <context id="character-good">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="punctuator"/>
+        <context ref="character-content-good"/>
+        <context ref="character-content-bad"/>
+        <context sub-pattern="0" where="end" style-ref="punctuator"/>
+      </include>
+    </context>
+
+    <context id="character-bad" style-ref="error">
+      <match>''|'$</match>
+    </context>
+
+    <context id="string-content" class="spell-check">
+      <start></start>
+      <end></end>
+      <include>
+        <context ref="string-eol-error"/>
+        <context ref="string-character"/>
+      </include>
+    </context>
+
+    <define-regex id="prefix-name" extended="true">
+      ext |
+      mac |
+      sta
+    </define-regex>
+
+    <context id="string-good">
+      <start>"(\%{prefix-name}#)?</start>
+      <end>"</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="punctuator"/>
+        <context ref="string-content"/>
+        <context sub-pattern="0" where="end" style-ref="punctuator"/>
+      </include>
+    </context>
+
+    <context id="string-bad" style-ref="error">
+      <match>"$</match>
+    </context>
+
+    <context id="strings">
+      <include>
+        <context ref="character-bad"/>
+        <context ref="character-good"/>
+        <context ref="string-bad"/>
+        <context ref="string-good"/>
+      </include>
+    </context>
+
+    <!-- Paths (content enclosed in “<>”) -->
+    <!-- ================================================================= -->
+
+    <context id="path-eol-error" style-ref="error">
+      <start>[^&lt;&gt;]+$</start>
+    </context>
+
+    <context id="path-character" once-only="true">
+      <match>([^&gt;&lt;])</match>
+      <include>
+        <context sub-pattern="3" style-ref="string"/>
+      </include>
+    </context>
+
+    <context id="path-content" class="spell-check">
+      <start></start>
+      <end></end>
+      <include>
+        <context ref="path-eol-error"/>
+        <context ref="path-character"/>
+      </include>
+    </context>
+
+    <!-- Numbers -->
+    <!-- ================================================================= -->
+
+    <context id="real-1" style-ref="float">
+      <match>~?\b\%{dd}+\.\%{dd}+(\%{de}-?\%{dd}+)?\b</match>
+      <!-- Required decimal part and optional exponent part -->
+    </context>
+
+    <context id="real-2" style-ref="float">
+      <match>~?\b\%{dd}+(\.\%{dd}+)?\%{de}-?\%{dd}+\b</match>
+      <!-- Optional decimal part and required exponent part -->
+    </context>
+
+    <context id="real-1-bad" style-ref="error">
+      <match>~?\b\%{dd}+\.\%{dd}*(\%{de}-?\%{dd}*)?\b</match>
+    </context>
+
+    <context id="real-2-bad" style-ref="error">
+      <match>~?\b\%{dd}+(\.\%{dd}*)?\%{de}-?\%{dd}*\b</match>
+    </context>
+
+    <context id="real-3-bad" style-ref="error">
+      <match>~?\b\%{dd}+\.</match>
+    </context>
+
+    <context id="hexadecimal" style-ref="int">
+      <match>\b0\%{hp}\%{hd}+\%{ul}\b</match>
+    </context>
+
+    <context id="decimal" style-ref="int">
+      <match>~?\b[1-9]\%{dd}*\%{ul}\b</match>
+    </context>
+
+    <context id="octal" style-ref="int">
+      <match>\b\%{od}+\%{ul}\b</match>
+    </context>
+
+    <context id="numbers">
+      <include>
+        <context ref="real-1"/>
+        <context ref="real-2"/>
+        <context ref="real-1-bad"/>
+        <context ref="real-2-bad"/>
+        <context ref="real-3-bad"/>
+        <context ref="hexadecimal"/>
+        <context ref="decimal"/>
+        <context ref="octal"/>
+      </include>
+    </context>
+
+    <!-- Keywords -->
+    <!-- ================================================================= -->
+
+    <context id="keyword-special-case-1" style-ref="keyword">
+      <start>staload\s*"</start>
+      <end>"</end>
+      <include>
+        <context ref="string-content" style-ref="file"/>
+      </include>
+    </context>
+
+    <context id="keyword-special-case-2">
+      <match extended="true">
+        \b
+        (
+          abstype          |
+          abst\%{z}ype     |
+          absprop          |
+          absview          |
+          absvtype         |
+          absviewtype      |
+          absvt\%{z}ype    |
+          absviewt\%{z}ype |
+          classdec         |
+          dataprop         |
+          datasort         |
+          datatype         |
+          dataview         |
+          dataviewtype     |
+          sortdef          |
+          stadef           |
+          typedef          |
+          view\%{z}        |
+          viewdef          |
+          viewtypedef      |
+          vtypedef
+        )
+        \b
+        (\s+)
+        (\%{name-of-type}[+-]?)
+      </match>
+      <include>
+        <context sub-pattern="1" style-ref="keyword"/>
+        <context sub-pattern="3" style-ref="type"/>
+      </include>
+    </context>
+
+    <!-- CHECKME: +/- -->
+    <!-- Can't use `keyword` elements, due to `+` and `-` suffix used with
+    a few of the keywords and makes them recognized as such even if something
+    follows next to it without a space between, ex. in `val+foo = …` -->
+    <context id="keyword" style-ref="keyword" class="no-spell-check">
+      <match extended="true">
+        \%[abstype\%]          |
+        \%[abst\%{z}ype\%]     |
+        \%[absprop\%]          |
+        \%[absview\%]          |
+        \%[absvtype\%]         |
+        \%[absviewtype\%]      |
+        \%[absvt\%{z}ype\%]    |
+        \%[absviewt\%{z}ype\%] |
+        \%[addr\%{z}\%]        |
+        \%[and\%]              |
+        \%[\$arrpsz\%]         |
+        \%[\$arrptrsize\%]     |
+        \%[as\%]               |
+        \%[assume\%]           |
+        \%[begin\%]            |
+        \%[\$break\%]          |
+        \%[case\%]             |
+        \%[case-               |
+        \%[case\+              |
+        \%[castfn\%]           |
+        \%[classdec\%]         |
+        \%[\$continue\%]       |
+        \%[dataprop\%]         |
+        \%[datasort\%]         |
+        \%[datatype\%]         |
+        \%[dataview\%]         |
+        \%[dataviewtype\%]     |
+        \%[\$delay\%]          |
+        \%[do\%]               |
+        \%[dynload\%]          |
+        \%[\$effmask\%]        |
+        \%[\$effmask_ntm\%]    |
+        \%[\$effmask_exn\%]    |
+        \%[\$effmask_ref\%]    |
+        \%[\$effmask_wrt\%]    |
+        \%[\$effmask_all\%]    |
+        \%[else\%]             |
+        \%[end\%]              |
+        \%[exception\%]        |
+        \%[extern\%]           |
+        \%[\$extern\%]         |
+        \%[\$extfcall\%]       |
+        \%[\$extkind\%]        |
+        \%[\$extval\%]         |
+        \%[\$extype\%]         |
+        \%[\$extype_struct\%]  |
+        \%[fix\%]              |
+        \%[fix\%{z}\%]         |
+        \%[fn\%]               |
+        \%[fnx\%]              |
+        \%[fold\%{z}\%]        |
+        \%[for\%]              |
+        \%[for\*\%]            |
+        \%[free\%{z}\%]        |
+        \%[fun\%]              |
+        \%[if\%]               |
+        \%[implement\%]        |
+        \%[import\%]           |
+        \%[in\%]               |
+        \%[infix\%]            |
+        \%[infixl\%]           |
+        \%[infixr\%]           |
+        \%[lam\%]              |
+        \%[lam\%{z}\%]         |
+        \%[\$ldelay\%]         |
+        \%[let\%]              |
+        \%[llam\%]             |
+        \%[local\%]            |
+        \%[\$lst\%]            |
+        \%[\$lst_t\%]          |
+        \%[\$lst_vt\%]         |
+        \%[\$list\%]           |
+        \%[\$list_t\%]         |
+        \%[\$list_vt\%]        |
+        \%[macdef\%]           |
+        \%[macrodef\%]         |
+        \%[\$myfilename\%]     |
+        \%[\$mylocation\%]     |
+        \%[\$myfunction\%]     |
+        \%[nonfix\%]           |
+        \%[of\%]               |
+        \%[op\%]               |
+        \%[overload\%]         |
+        \%[postfix\%]          |
+        \%[praxi\%]            |
+        \%[prcase\%]           |
+        \%[prefix\%]           |
+        \%[prfn\%]             |
+        \%[prfun\%]            |
+        \%[primplement\%]      |
+        \%[propdef\%]          |
+        \%[prval\%]            |
+        \%[prvar\%]            |
+        \%[\$raise\%]          |
+        \%[rec\%]              |
+        \%[\$rec\%]            |
+        \%[\$rec_t\%]          |
+        \%[\$rec_vt\%]         |
+        \%[\$record\%]         |
+        \%[\$record_t\%]       |
+        \%[\$record_vt\%]      |
+        \%[ref\%{z}\%]         |
+        \%[require\%]          |
+        \%[scase\%]            |
+        \%[\$showtype\%]       |
+        \%[sif\%]              |
+        \%[sortdef\%]          |
+        \%[stacst\%]           |
+        \%[stadef\%]           |
+        \%[staload\%]          |
+        \%[static\%]           |
+        \%[stavar\%]           |
+        \%[symelim\%]          |
+        \%[symintr\%]          |
+        \%[then\%]             |
+        \%[tkindef\%]          |
+        \%[try\%]              |
+        \%[\$tup\%]            |
+        \%[\$tup_t\%]          |
+        \%[\$tup_vt\%]         |
+        \%[\$tuple\%]          |
+        \%[\$tuple_t\%]        |
+        \%[\$tuple_vt\%]       |
+        \%[typedef\%]          |
+        \%[val\%]              |
+        \%[val-                |
+        \%[val\+               |
+        \%[var\%]              |
+        \%[\$vcopyenv_v\%]     |
+        \%[\$vcopyenv_vt\%]    |
+        \%[view\%{z}\%]        |
+        \%[viewdef\%]          |
+        \%[viewtypedef\%]      |
+        \%[vtypedef\%]         |
+        \%[when\%]             |
+        \%[where\%]            |
+        \%[while\%]            |
+        \%[while\*\%]          |
+        \%[with\%]             |
+        \%[withprop\%]         |
+        \%[withtype\%]         |
+        \%[withvtype\%]        |
+        \%[withview\%]         |
+        \%[withviewtype\%]
+      </match>
+    </context>
+
+    <context id="keyword-operator" style-ref="operator">
+      <keyword>andalso</keyword>
+      <keyword>asl</keyword>
+      <keyword>asr</keyword>
+      <keyword>land</keyword>
+      <keyword>lor</keyword>
+      <keyword>lxor</keyword>
+      <keyword>lsl</keyword>
+      <keyword>lsr</keyword>
+      <keyword>mod</keyword>
+      <keyword>not</keyword>
+      <keyword>orelse</keyword>
+    </context>
+
+    <context id="keyword-constant" style-ref="constant">
+      <keyword>false</keyword>
+      <keyword>nil</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <!-- CHECKME: +/- -->
+    <!-- Unused, kept here for reference, `predefined-type-subset` only is
+    used. See `id="keyword"` for why `keyword` elements are not used. -->
+    <context id="predefined-type" style-ref="type">
+      <match extended="true">
+        \%[bool\%]          |
+        \%[char\%]          |
+        \%[double\%]        |
+        \%[exn\%]           |
+        \%[float\%]         |
+        \%[int\%]           |
+        \%[lint\%]          |
+        \%[llint\%]         |
+        \%[schar\%]         |
+        \%[size_t\%]        |
+        \%[ssize_t\%]       |
+        \%[string\%]        |
+        \%[type\%]          |
+        \%[type\+           |
+        \%[type-            |
+        \%[t\%{z}p\%]       |
+        \%[t\%{z}p\+        |
+        \%[t\%{z}p-         |
+        \%[t\%{z}ype\%]     |
+        \%[t\%{z}ype\+      |
+        \%[t\%{z}ype-       |
+        \%[uchar\%]         |
+        \%[uint\%]          |
+        \%[ulint\%]         |
+        \%[ullint\%]        |
+        \%[view\%]          |
+        \%[viewtype\%]      |
+        \%[viewtype\+       |
+        \%[viewtype-        |
+        \%[viewt\%{z}ype\%] |
+        \%[viewt\%{z}ype\+  |
+        \%[viewt\%{z}ype-   |
+        \%[void\%]
+      </match>
+    </context>
+
+    <!-- CHECKME: +/- -->
+    <!-- See `id="keyword"` for why `keyword` elements are not used. -->
+    <context id="predefined-type-subset" style-ref="type">
+      <match extended="true">
+        \%[type\%]          |
+        \%[type\+           |
+        \%[type-            |
+        \%[t\%{z}p\%]       |
+        \%[t\%{z}p\+        |
+        \%[t\%{z}p-         |
+        \%[t\%{z}ype\%]     |
+        \%[t\%{z}ype\+      |
+        \%[t\%{z}ype-       |
+        \%[viewtype\+       |
+        \%[viewtype-        |
+        \%[viewt\%{z}ype\%] |
+        \%[viewt\%{z}ype\+  |
+        \%[viewt\%{z}ype-
+      </match>
+    </context>
+
+    <context id="keywords">
+      <include>
+        <context ref="keyword-special-case-1"/>
+        <context ref="keyword-special-case-2"/>
+        <context ref="keyword"/>
+        <context ref="keyword-operator"/>
+        <context ref="keyword-constant"/>
+        <context ref="predefined-type-subset"/>
+      </include>
+    </context>
+
+    <!-- Names -->
+    <!-- ================================================================= -->
+
+    <context id="name" style-ref="name">
+      <match>\b\%{name}</match>
+    </context>
+
+    <context id="names">
+      <include>
+        <context ref="name"/>
+      </include>
+    </context>
+
+    <!-- Symbols -->
+    <!-- ================================================================= -->
+
+    <context id="symbol-special-case-1">
+      <match extended="true">
+        ((-&lt;|:&lt;|=&lt;)(!?)(\%{tag})(&gt;) | ([]:!&amp;]))
+        \s*
+        (\%{name-of-type}[+-]?)
+      </match>
+      <include>
+        <context sub-pattern="2" style-ref="punctuator"/>
+        <context sub-pattern="3" style-ref="punctuator"/>
+        <context sub-pattern="4" style-ref="keyword"/>
+        <context sub-pattern="5" style-ref="punctuator"/>
+        <context sub-pattern="6" style-ref="punctuator"/>
+        <context sub-pattern="7" style-ref="type"/>
+      </include>
+    </context>
+
+    <!-- Does not highlight properly when there are more than two
+    parameters, but don't mind, that's better than worse. -->
+    <context id="symbol-special-case-2">
+      <match extended="true">
+        (&lt;)
+        (\%{name-of-type})
+        (\s*(,)\s*(\%{name-of-type}))*
+        (&gt;)
+      </match>
+      <include>
+        <context sub-pattern="1" style-ref="punctuator"/>
+        <context sub-pattern="2" style-ref="type"/>
+        <context sub-pattern="4" style-ref="punctuator"/>
+        <context sub-pattern="5" style-ref="type"/>
+        <context sub-pattern="6" style-ref="punctuator"/>
+      </include>
+    </context>
+
+    <context id="symbol-special-case-3" style-ref="operator">
+      <match>\\?\b\%{name}</match>
+    </context>
+
+    <context id="symbolic-constant" style-ref="constant">
+      <match extended="true">
+        {\.\.}   |
+        {\.\.\.} |
+        \(\)
+      </match>
+    </context>
+
+    <context id="symbolic-operator-5" style-ref="operator">
+      <match extended="true">
+        =\/=&gt;&gt;
+      </match>
+    </context>
+
+    <context id="symbolic-operator-4" style-ref="operator">
+      <match extended="true">
+        =\/=&gt;
+      </match>
+    </context>
+
+    <context id="symbolic-operator-3" style-ref="operator">
+      <match extended="true">
+        --=       |
+        --!       |
+        !\+\+     |
+        =\+\+     |
+        =&lt;&gt; |
+        =&gt;&gt;
+      </match>
+    </context>
+
+    <context id="symbolic-operator-2" style-ref="operator">
+      <match extended="true">
+        ==         |
+        --         |
+        ::         |
+        !=         |
+        \|\|       |
+        \+\+       |
+        &amp;&amp; |
+        &gt;=      |
+        &gt;&gt;   |
+        &lt;=      |
+        &lt;&gt;   |
+        &lt;&lt;
+      </match>
+    </context>
+
+    <context id="symbolic-operator-1" style-ref="operator">
+      <match extended="true">
+        ~     |
+        -     |
+        !     |
+        @     |
+        \/    |
+        \*    |
+        \+    |
+        &gt;  |
+        &lt;
+      </match>
+    </context>
+
+    <context id="punctuator-3" style-ref="punctuator">
+      <match extended="true">
+        :=-   |
+        :=:   |
+        :=\/  |
+        :=\*  |
+        :=\+  |
+        :-=   |
+        :/=   |
+        :\*=  |
+        :\+=  |
+        %{\^  |
+        %{\$  |
+        %{\#
+      </match>
+    </context>
+
+    <context id="punctuator-2" style-ref="punctuator">
+      <match extended="true">
+        \#\[      |
+        %{        |
+        %}        |
+        '\(       |
+        '{        |
+        :=        |
+        @\(       |
+        @\[       |
+        @{        |
+        =&gt;     |
+        -&gt;     |
+        &gt;\.    |
+        =&gt;&gt; |
+        &gt;&lt;  |
+        :&lt;     |
+        \.&lt;
+      </match>
+    </context>
+
+    <context id="punctuator-1" style-ref="punctuator">
+      <match extended="true">
+        ~     |
+        =     |
+        ,     |
+        ;     |
+        :     |
+        !     |
+        {     |
+        }     |
+        \|    |
+        \.    |
+        \(    |
+        \)    |
+        \[    |
+        \]    |
+        \$    |
+        \?    |
+        &amp;
+      </match>
+    </context>
+
+    <context id="symbols">
+      <include>
+        <context ref="symbol-special-case-1"/>
+        <context ref="symbol-special-case-2"/>
+        <context ref="symbol-special-case-3"/>
+        <context ref="symbolic-constant"/>
+        <context ref="symbolic-operator-5"/>
+        <context ref="symbolic-operator-4"/>
+        <context ref="symbolic-operator-3"/>
+        <context ref="punctuator-3"/>
+        <context ref="symbolic-operator-2"/>
+        <context ref="punctuator-2"/>
+        <context ref="symbolic-operator-1"/>
+        <context ref="punctuator-1"/>
+      </include>
+    </context>
+
+    <!-- Macros -->
+    <!-- ================================================================= -->
+
+    <context id="special-constants" style-ref="preprocessor">
+      <match>\#\%[(FILENAME|LOCATION)\%]</match>
+    </context>
+
+    <context id="preprocessor-path-1" style-ref="preprocessor">
+      <start>\#include\s*"</start>
+      <end>"</end>
+      <include>
+        <context ref="string-content" style-ref="file"/>
+      </include>
+    </context>
+
+    <context id="preprocessor-path-2" style-ref="preprocessor">
+      <start>\#include\s*&lt;</start>
+      <end>&gt;</end>
+      <include>
+        <context ref="path-content" style-ref="file"/>
+      </include>
+    </context>
+
+    <context id="preprocessor-sym" style-ref="preprocessor">
+      <match extended="true">
+        \#\%[(
+          define   |
+          elifdef  |
+          elifndef |
+          ifdef    |
+          ifndef   |
+          undef
+         )\s+
+         (\%{name}|\%{op})
+      </match>
+      <include>
+        <context sub-pattern="2" style-ref="constant"/>
+      </include>
+    </context>
+
+    <context id="preprocessor-exp" style-ref="preprocessor">
+      <match extended="true">
+        \#\%[(
+          assert   |
+          elif     |
+          else     |
+          endif    |
+          error    |
+          if       |
+          then     |
+          print
+        )\%]
+      </match>
+    </context>
+
+    <context id="macros">
+      <include>
+        <context ref="special-constants"/>
+        <context ref="preprocessor-path-1"/>
+        <context ref="preprocessor-path-2"/>
+        <context ref="preprocessor-sym"/>
+        <context ref="preprocessor-exp"/>
+      </include>
+    </context>
+
+    <!-- Blank -->
+    <!-- ================================================================= -->
+
+    <context id="blanks">
+      <match>\s+</match>
+    </context>
+
+    <!-- Error -->
+    <!-- ================================================================= -->
+
+    <context id="errors" style-ref="error">
+      <match>[^\s$]+</match>
+    </context>
+
+    <!-- Main -->
+    <!-- ================================================================= -->
+
+    <!-- Main context -->
+    <context id="ats" class="no-spell-check">
+      <include>
+        <context ref="keywords"/>
+        <context ref="names"/>
+        <context ref="comments"/>
+        <context ref="numbers"/>
+        <context ref="symbols"/>
+        <context ref="strings"/>
+        <context ref="macros"/>
+        <context ref="blanks"/>
+        <context ref="errors"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

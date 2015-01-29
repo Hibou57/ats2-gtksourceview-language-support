@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- -*-coding:utf-8; mode:xml; indent-tabs-mode:nil; c-basic-offset:2;-*- -->
+<!--
+
+ This theme is based on the Solarized theme originally created
+ by Ethan Schoonover at http://ethanschoonover.com/solarized
+
+ Copyright (C) 2012 Matthew Cantelon, 2014 Yannick Duchêne
+ Author: Matthew Cantelon <me@matthewcantelon.ca>
+ Modified: Yannick Duchêne <yannick_duchene@yahoo.fr>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-->
+
+<!-- Yannick Duchêne <yannick_duchene@yahoo.fr> (2014-08-02):
+
+ * changed `def:error` so that `def:error` and `def:special-char` does not
+   looks the same.
+
+ * GtkSourceView does not merge language specific styles (witnessed with
+   Gedit and Medit), and instead overrides styles from the language files
+   with this one. Ex. `xml:element-name` lose the color as defined in
+   `xml.lang`. All the language specific styles are thus commented-out.
+
+ * Changed `def:string` to give it the same style as `def:decimal` and
+   `def:character`. The new color, more bright, makes eye-scanning for
+   string easier, and a string is after all a literal too. By the way,
+   this would be nice to have a `def:literal` (and a `def:number` too).
+
+ * Dropped italic style from `def:comment`: it prevent readability and
+   is a misuse of italic, which is an emphasing. It's unlikely all
+   comment are to be emphased.
+
+ * Dropped italic style from `def:shebang` as it's already bold.
+
+ * Changed `def:preprocessor` foreground from orange to violet, more
+   visible on dark background and offers better contrast with string style.
+   Also made it bold, like `def:keyword` and `def:statment`, to which it
+   is related.
+
+ * Dropped italic style from `def:doc-comment-element` to rely on a
+   lighter foreground color, to make eye‑scanning more easy.
+
+ * Changed `def:note` to be like error, except with magenta background.
+   Otherwise, it was too much looking the same as literals.
+-->
+
+
+<style-scheme id="solarizeddarkalt" _name="Solarized Dark Alternate" version="1.0">
+
+  <author>Original: Matthew Cantelon.
+  Modifications: Yannick Duchêne.</author>
+
+  <_description>Modified GtkSourceView port of the dark version of the Solarized theme. Check https://github.com/mattcan/solarized-gedit for the original.</_description>
+
+  <!-- Solarized Palette -->
+  <color name="base03"                      value="#002b36"/>
+  <color name="base02"                      value="#073642"/>
+  <color name="base01"                      value="#586e75"/>
+  <color name="base00"                      value="#657b83"/>
+  <color name="base0"                       value="#839496"/>
+  <color name="base1"                       value="#93a1a1"/>
+  <color name="base2"                       value="#eee8d5"/>
+  <color name="base3"                       value="#fdf6e3"/>
+  <color name="yellow"                      value="#b58900"/>
+  <color name="orange"                      value="#cb4b16"/>
+  <color name="red"                         value="#dc322f"/>
+  <color name="magenta"                     value="#d33682"/>
+  <color name="violet"                      value="#6c71c4"/>
+  <color name="blue"                        value="#268bd2"/>
+  <color name="cyan"                        value="#2aa198"/>
+  <color name="green"                       value="#859900"/>
+
+  <!-- Global Settings -->
+  <style name="text"                        foreground="base1" background="base03"/>
+  <style name="selection"                   foreground="base03" background="base0"/>
+  <style name="cursor"                      foreground="base2"/>
+  <style name="current-line"                background="base02"/>
+  <style name="line-numbers"                foreground="base0" background="base02"/>
+  <style name="draw-spaces"                 foreground="base0"/>
+
+  <!-- Bracket Matching -->
+  <style name="bracket-match"               foreground="base3" bold="true"/>
+  <style name="bracket-mismatch"            foreground="base3" background="red" bold="true"/>
+
+  <!-- Comments -->
+  <style name="def:comment"                 foreground="base01"/>
+  <style name="def:shebang"                 foreground="base01" bold="true"/>
+  <style name="def:doc-comment-element"     foreground="base0"/>
+
+  <!-- Right Margin -->
+  <style name="right-margin"                foreground="base0" background="base02"/>
+
+  <!-- Search Matching -->
+  <style name="search-match"                foreground="yellow"/>
+
+  <!-- Constants -->
+  <style name="def:constant"                foreground="cyan"/>
+  <style name="def:decimal"                 foreground="magenta"/>
+  <style name="def:base-n-integer"          use-style="def:decimal"/>
+  <style name="def:floating-point"          use-style="def:decimal"/>
+  <style name="def:complex"                 use-style="def:decimal"/>
+  <style name="def:character"               use-style="def:decimal"/>
+  <style name="def:string"                  use-style="def:decimal"/>
+  <style name="def:special-char"            foreground="red"/>
+  <style name="def:builtin"                 foreground="orange"/>
+  <style name="def:keyword"                 foreground="green" bold="true"/>
+  <style name="def:variable"                foreground="blue"/>
+  <style name="def:boolean"                 foreground="red"/>
+  <style name="def:special-constant"        foreground="blue"/>
+
+  <!-- Identifiers -->
+  <style name="def:identifier"              foreground="blue"/>
+  <style name="def:function"                use-style="def:identifier"/>
+
+  <!-- Statements -->
+  <style name="def:statement"               use-style="def:keyword"/>
+
+  <!-- Types -->
+  <style name="def:type"                    foreground="yellow"/>
+
+  <!-- Others -->
+  <style name="def:preprocessor"            foreground="violet" bold="true"/>
+  <style name="def:error"                   foreground="base2" background="red" bold="true"/>
+  <style name="def:note"                    foreground="base2" background="magenta" bold="true"/>
+  <style name="def:underlined"              foreground="violet"/>
+
+  <!-- Language specific styles -->
+<!--
+  <style name="c:preprocessor"              use-style="def:preprocessor"/>
+  <style name="c:included-file"             use-style="c:preprocessor"/>
+  <style name="c:common-defines"            foreground="#0095FF" bold="true"/>
+
+  <style name="diff:diff-file"              foreground="blue" underline="true"/>
+  <style name="diff:added-line"             foreground="base03" background="green"/>
+  <style name="diff:removed-line"           foreground="base03" background="red"/>
+  <style name="diff:changed-line"           foreground="base03" background="yellow"/>
+  <style name="diff:location"               use-style="def:type"/>
+
+  <style name="xml:attribute-name"          foreground="green"/>
+  <style name="xml:element-name"            bold="true"/>
+  <style name="xml:entity"                  foreground="blue"/>
+  <style name="xml:cdata-delim"             foreground="orange" bold="true"/>
+  <style name="xml:processing-instruction"  bold="true"/>
+  <style name="xml:doctype"                 foreground="magenta" bold="true"/>
+
+  <style name="python:string-conversion"    background="base2"/>
+  <style name="python:module-handler"       use-style="def:character"/>
+  <style name="python:special-variable"     use-style="def:type"/>
+  <style name="python:builtin-constant"     use-style="def:builtin"/>
+  <style name="python:builtin-object"       use-style="def:type"/>
+  <style name="python:builtin-function"     use-style="def:identifier"/>
+  <style name="python:boolean"              use-style="def:boolean"/>
+
+  <style name="sh:dollar"                   foreground="green" bold="true"/>
+-->
+</style-scheme>
