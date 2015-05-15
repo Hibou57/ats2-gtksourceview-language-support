@@ -24,6 +24,31 @@
   language definition is for ATS2.
 -->
 
+<!--
+  History since it's on Github
+  ============================
+
+  2015-05-15 15:58:28:
+    * Added colorization for extern blocks (see README.md).
+    * Miscellaneous colorization fixes.
+
+  2015-02-02 23:13:44:
+    * Added `addr` to `predefined-type`
+    * Renamed `predefined-type` into `predefined-type-or-sort`
+    * Renamed `predefined-type-subset` into `predefined-type-or-sort-subset`
+
+  2015-02-01 19:22:09:
+     * `absviewt0ype` cannot be written as `absviewt@ype`
+     * `addr@` // as `addr0`
+     * `fold@` // as `fold0`
+     * `free@` // as `free0`
+     * `lam@` // as `lam0`
+     * `ref@` // as `ref0`
+     * `t0p` // `t@p`
+     * `view@` // as `view0`
+
+-->
+
 <language id="ats" _name="ATS" version="2.0" _section="Sources">
 
   <metadata>
@@ -326,6 +351,7 @@
       </include>
     </context>
 
+    <!-- CHECKME: does it work? -->
     <context id="keyword-special-case-2">
       <match extended="true">
         \b
@@ -337,17 +363,18 @@
           absvtype         |
           absviewtype      |
           absvt\%{z}ype    |
-          absviewt\%{z}ype |
+          absviewt0ype     |
           classdec         |
           dataprop         |
           datasort         |
           datatype         |
           dataview         |
           dataviewtype     |
+          datavtype        |
           sortdef          |
           stadef           |
           typedef          |
-          view\%{z}        |
+          view@            |
           viewdef          |
           viewtypedef      |
           vtypedef
@@ -375,8 +402,8 @@
         \%[absvtype\%]         |
         \%[absviewtype\%]      |
         \%[absvt\%{z}ype\%]    |
-        \%[absviewt\%{z}ype\%] |
-        \%[addr\%{z}\%]        |
+        \%[absviewt0ype\%]     |
+        \%[addr@\%]            |
         \%[and\%]              |
         \%[\$arrpsz\%]         |
         \%[\$arrptrsize\%]     |
@@ -395,6 +422,7 @@
         \%[datatype\%]         |
         \%[dataview\%]         |
         \%[dataviewtype\%]     |
+        \%[datavtype\%]        |
         \%[\$delay\%]          |
         \%[do\%]               |
         \%[dynload\%]          |
@@ -415,13 +443,12 @@
         \%[\$extype\%]         |
         \%[\$extype_struct\%]  |
         \%[fix\%]              |
-        \%[fix\%{z}\%]         |
         \%[fn\%]               |
         \%[fnx\%]              |
-        \%[fold\%{z}\%]        |
+        \%[fold@\%]            |
         \%[for\%]              |
         \%[for\*\%]            |
-        \%[free\%{z}\%]        |
+        \%[free@\%]            |
         \%[fun\%]              |
         \%[if\%]               |
         \%[implement\%]        |
@@ -431,7 +458,7 @@
         \%[infixl\%]           |
         \%[infixr\%]           |
         \%[lam\%]              |
-        \%[lam\%{z}\%]         |
+        \%[lam@\%]             |
         \%[\$ldelay\%]         |
         \%[let\%]              |
         \%[llam\%]             |
@@ -469,7 +496,7 @@
         \%[\$record\%]         |
         \%[\$record_t\%]       |
         \%[\$record_vt\%]      |
-        \%[ref\%{z}\%]         |
+        \%[ref@\%]             |
         \%[require\%]          |
         \%[scase\%]            |
         \%[\$showtype\%]       |
@@ -498,7 +525,7 @@
         \%[var\%]              |
         \%[\$vcopyenv_v\%]     |
         \%[\$vcopyenv_vt\%]    |
-        \%[view\%{z}\%]        |
+        \%[view@\%]            |
         \%[viewdef\%]          |
         \%[viewtypedef\%]      |
         \%[vtypedef\%]         |
@@ -536,10 +563,12 @@
     </context>
 
     <!-- CHECKME: +/- -->
-    <!-- Unused, kept here for reference, `predefined-type-subset` only is
-    used. See `id="keyword"` for why `keyword` elements are not used. -->
-    <context id="predefined-type" style-ref="type">
+    <!-- Unused, kept here for reference, `predefined-type-or-sort-subset`
+    only is used. See `id="keyword"` for why `keyword` elements are not used.
+    -->
+    <context id="predefined-type-or-sort" style-ref="type">
       <match extended="true">
+        \%[addr\%]          |
         \%[bool\%]          |
         \%[char\%]          |
         \%[double\%]        |
@@ -555,9 +584,7 @@
         \%[type\%]          |
         \%[type\+           |
         \%[type-            |
-        \%[t\%{z}p\%]       |
-        \%[t\%{z}p\+        |
-        \%[t\%{z}p-         |
+        \%[t0p\%]           |
         \%[t\%{z}ype\%]     |
         \%[t\%{z}ype\+      |
         \%[t\%{z}ype-       |
@@ -578,14 +605,12 @@
 
     <!-- CHECKME: +/- -->
     <!-- See `id="keyword"` for why `keyword` elements are not used. -->
-    <context id="predefined-type-subset" style-ref="type">
+    <context id="predefined-type-or-sort-subset" style-ref="type">
       <match extended="true">
         \%[type\%]          |
         \%[type\+           |
         \%[type-            |
-        \%[t\%{z}p\%]       |
-        \%[t\%{z}p\+        |
-        \%[t\%{z}p-         |
+        \%[t0p\%]           |
         \%[t\%{z}ype\%]     |
         \%[t\%{z}ype\+      |
         \%[t\%{z}ype-       |
@@ -604,7 +629,7 @@
         <context ref="keyword"/>
         <context ref="keyword-operator"/>
         <context ref="keyword-constant"/>
-        <context ref="predefined-type-subset"/>
+        <context ref="predefined-type-or-sort-subset"/>
       </include>
     </context>
 
@@ -618,6 +643,132 @@
     <context id="names">
       <include>
         <context ref="name"/>
+      </include>
+    </context>
+
+    <!-- Extern blocks -->
+    <!-- ================================================================= -->
+
+    <context id="extern-c">
+      <start>\(\*(ANSI-C|C99|C|ISO-C)\*\)</start>
+      <end>%\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="comment"/>
+        <context sub-pattern="0" where="end" style-ref="escaped"/>
+        <context extend-parent="false">
+          <start>%\{[$^]?</start>
+          <end>%\}</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="escaped"/>
+            <context ref="c:c"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="extern-cil">
+      <start>\(\*(CIL|CSharp|C-Sharp|C\#)\*\)</start>
+      <end>%\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="comment"/>
+        <context sub-pattern="0" where="end" style-ref="escaped"/>
+        <context extend-parent="false">
+          <start>%\{[$^]?</start>
+          <end>%\}</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="escaped"/>
+            <context ref="c-sharp:c-sharp"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="extern-js">
+      <start>\(\*(JS|JavaScript|EScript|ECMAScript|ES5)\*\)</start>
+      <end>%\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="comment"/>
+        <context sub-pattern="0" where="end" style-ref="escaped"/>
+        <context extend-parent="false">
+          <start>%\{[$^]?</start>
+          <end>%\}</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="escaped"/>
+            <context ref="js:js"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="extern-php">
+      <start>\(\*PHP\*\)</start>
+      <end>%\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="comment"/>
+        <context sub-pattern="0" where="end" style-ref="escaped"/>
+        <context extend-parent="false">
+          <start>%\{[$^]?</start>
+          <end>%\}</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="escaped"/>
+            <context ref="php:php"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="extern-pl">
+      <start>\(\*Perl\*\)</start>
+      <end>%\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="comment"/>
+        <context sub-pattern="0" where="end" style-ref="escaped"/>
+        <context extend-parent="false">
+          <start>%\{[$^]?</start>
+          <end>%\}</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="escaped"/>
+            <context ref="perl:perl"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="extern-py">
+      <start>\(\*(Python|Py)\*\)</start>
+      <end>%\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="comment"/>
+        <context sub-pattern="0" where="end" style-ref="escaped"/>
+        <context extend-parent="false">
+          <start>%\{[$^]?</start>
+          <end>%\}</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="escaped"/>
+            <context ref="python3:python3"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="extern-unknown" style-ref="preprocessor">
+      <start>%\{[$^]?</start>
+      <end>%\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="escaped"/>
+        <context sub-pattern="0" where="end" style-ref="escaped"/>
+      </include>
+    </context>
+
+    <context id="externs">
+      <include>
+        <context ref="extern-c"/>
+        <context ref="extern-cil"/>
+        <context ref="extern-js"/>
+        <context ref="extern-php"/>
+        <context ref="extern-pl"/>
+        <context ref="extern-py"/>
+        <context ref="extern-unknown"/> <!-- Must be the last one. -->
       </include>
     </context>
 
@@ -689,7 +840,7 @@
         !\+\+     |
         =\+\+     |
         =&lt;&gt; |
-        =&gt;&gt;
+        <!-- =&gt;&gt; Also punctuator: conflict -->
       </match>
     </context>
 
@@ -737,7 +888,8 @@
         :\+=  |
         %{\^  |
         %{\$  |
-        %{\#
+        %{\#  |
+        =&gt;&gt;
       </match>
     </context>
 
@@ -755,7 +907,6 @@
         =&gt;     |
         -&gt;     |
         &gt;\.    |
-        =&gt;&gt; |
         &gt;&lt;  |
         :&lt;     |
         \.&lt;
@@ -764,6 +915,7 @@
 
     <context id="punctuator-1" style-ref="punctuator">
       <match extended="true">
+        `     |
         ~     |
         =     |
         ,     |
@@ -886,6 +1038,7 @@
     <!-- Main context -->
     <context id="ats" class="no-spell-check">
       <include>
+        <context ref="externs"/>
         <context ref="keywords"/>
         <context ref="names"/>
         <context ref="comments"/>
