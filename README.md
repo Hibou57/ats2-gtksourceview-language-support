@@ -99,3 +99,34 @@ this editor.
 The reasons why the modifications to the *Solarized Dark* theme, and which 
 ones, were made and why it may be good (or not) to you, are explained in the 
 file `solarized-dark-alt.xml` it‑self.
+
+Usage notes
+-----------
+
+### Triggering colorization for extern blocks
+
+An extern block (any the three forms) may get proper colorization, if it's preceded by a language tag, in the form of a comment.
+
+Ex:
+
+        (*JS*)
+        %{
+            alert(String(1.0));
+        %}
+
+The language tag comment is case-sensitive (see below for tags), must use the `(*…*)` form, and there many be multiple or no spaces/new-lines between it and the token opening the extern block.
+
+Ex. this is as much fine as the above:
+
+        (*JS*) %{ alert(String(1.0)); %}
+        
+Defined language tags:
+
+  * For C: `ANSI-C` or `C99` or `C` or `ISO-C`.
+  * For CIL: `CIL` or `CSharp` or `C-Sharp` or `C#`.
+  * For JavaScript: `JS` or `JavaScript` or `EScript` or `ECMAScript` or `ES5`.
+  * For PHP: `PHP`.
+  * For Perl: `Perl`.
+  * For Python: `Python` or `Py` (note the colorization used is that of Python 3).
+  
+No language tag or an unknow language tag, makes the extern block content be colorized uniformly with the preprocessor color.
