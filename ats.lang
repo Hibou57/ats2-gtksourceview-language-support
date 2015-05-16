@@ -618,7 +618,8 @@
         \%[viewtype-        |
         \%[viewt\%{z}ype\%] |
         \%[viewt\%{z}ype\+  |
-        \%[viewt\%{z}ype-
+        \%[viewt\%{z}ype-   |
+        \%[vt\%{z}ype\%]
       </match>
     </context>
 
