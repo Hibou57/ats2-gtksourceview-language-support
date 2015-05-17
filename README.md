@@ -130,3 +130,7 @@ Defined language tags:
   * For Python: `Python` or `Py` (note the colorization used is that of Python 3).
   
 No language tag or an unknow language tag, makes the extern block content be colorized uniformly with the preprocessor color.
+
+### Filtering and reformating ATS messages
+
+There is a format filter to be used with pipes and/or redirection. You will find it as `ats-messages-filter.py`. You may refer to the instruction given in the file it‑self, for usage.
