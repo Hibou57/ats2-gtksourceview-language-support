@@ -250,12 +250,12 @@ def filename_made_relative(filename):
 def reformated_located_message(string):
     """`filename: N(line=N, offs=N) -- N(line=N, offs=N): message` reformated.
 
-    Result: new‑string
+    Result: new‑string or `None`
 
-    If `string` is not of the expected form, it is returned back as-is,
-    otherwise it is returned as `path:line‑no:column‑no: message`, where
-    line‑no and column‑no are decimal numbers and where message will contain
-    new-line characters and added indents.
+    If `string` is not of the expected form, `None` is returned, otherwise
+    returns `path:line‑no:column‑no: message`, where line‑no and column‑no are
+    decimal numbers and where message will contain new-line characters and
+    added indents.
 
     """
     tail = string
