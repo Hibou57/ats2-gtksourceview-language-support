@@ -16,6 +16,7 @@ It's an `stdin` filter, reformating ATS messages received on input as follow:
   * Message are split into lines using the `: ` separator (using same indent).
   * `name$N$N(N);` are changed into `name;`.
   * `Var(N)` are changed into `Var(?)` (a question mark, literally).
+  * Showtype messages are formated as regular message with location.
   * The repository path prefix which appears in some name, like ATS
     exceptions, is collapsed as `[…]`.
 
