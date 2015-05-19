@@ -28,6 +28,9 @@
   History since it's on Github
   ============================
 
+  2015-05-19 01:57:27:
+    * Misc fixes, especially for function effect and what comes next to it.
+
   2015-05-15 15:58:28:
     * Added colorization for extern blocks (see README.md).
     * Miscellaneous colorization fixes.
@@ -351,7 +354,7 @@
       </include>
     </context>
 
-    <!-- CHECKME: does it work? -->
+    <!-- Colorize the first as a keyword, the second as a type. -->
     <context id="keyword-special-case-2">
       <match extended="true">
         \b
@@ -372,7 +375,6 @@
           dataviewtype     |
           datavtype        |
           sortdef          |
-          stadef           |
           typedef          |
           view@            |
           viewdef          |
@@ -562,7 +564,6 @@
       <keyword>true</keyword>
     </context>
 
-    <!-- CHECKME: +/- -->
     <!-- Unused, kept here for reference, `predefined-type-or-sort-subset`
     only is used. See `id="keyword"` for why `keyword` elements are not used.
     -->
@@ -599,7 +600,7 @@
         \%[viewt\%{z}ype\%] |
         \%[viewt\%{z}ype\+  |
         \%[viewt\%{z}ype-   |
-        \%[void\%]
+        \%[void\%]          |
       </match>
     </context>
 
@@ -780,7 +781,7 @@
       <match extended="true">
         ((-&lt;|:&lt;|=&lt;)(!?)(\%{tag})(&gt;) | ([]:!&amp;]))
         \s*
-        (\%{name-of-type}[+-]?)
+        (([({[])|(\%{name-of-type}[+-]?))
       </match>
       <include>
         <context sub-pattern="2" style-ref="punctuator"/>
@@ -788,7 +789,8 @@
         <context sub-pattern="4" style-ref="keyword"/>
         <context sub-pattern="5" style-ref="punctuator"/>
         <context sub-pattern="6" style-ref="punctuator"/>
-        <context sub-pattern="7" style-ref="type"/>
+        <context sub-pattern="8" style-ref="punctuator"/>
+        <context sub-pattern="9" style-ref="type"/>
       </include>
     </context>
 
