@@ -28,6 +28,11 @@
   History since it's on Github
   ============================
 
+  2015-05-21 00:58:01:
+    * Added `?!`
+    * Fixed `%{#`
+    * Moved some puntuators to operators (`:=+` and the likes).
+
   2015-05-19 01:57:27:
     * Misc fixes, especially for function effect and what comes next to it.
 
@@ -659,7 +664,7 @@
         <context sub-pattern="0" where="start" style-ref="comment"/>
         <context sub-pattern="0" where="end" style-ref="escaped"/>
         <context extend-parent="false">
-          <start>%\{[$^]?</start>
+          <start>%\{[$#^]?</start>
           <end>%\}</end>
           <include>
             <context sub-pattern="0" where="start" style-ref="escaped"/>
@@ -676,7 +681,7 @@
         <context sub-pattern="0" where="start" style-ref="comment"/>
         <context sub-pattern="0" where="end" style-ref="escaped"/>
         <context extend-parent="false">
-          <start>%\{[$^]?</start>
+          <start>%\{[$#^]?</start>
           <end>%\}</end>
           <include>
             <context sub-pattern="0" where="start" style-ref="escaped"/>
@@ -693,7 +698,7 @@
         <context sub-pattern="0" where="start" style-ref="comment"/>
         <context sub-pattern="0" where="end" style-ref="escaped"/>
         <context extend-parent="false">
-          <start>%\{[$^]?</start>
+          <start>%\{[$#^]?</start>
           <end>%\}</end>
           <include>
             <context sub-pattern="0" where="start" style-ref="escaped"/>
@@ -710,7 +715,7 @@
         <context sub-pattern="0" where="start" style-ref="comment"/>
         <context sub-pattern="0" where="end" style-ref="escaped"/>
         <context extend-parent="false">
-          <start>%\{[$^]?</start>
+          <start>%\{[$#^]?</start>
           <end>%\}</end>
           <include>
             <context sub-pattern="0" where="start" style-ref="escaped"/>
@@ -727,7 +732,7 @@
         <context sub-pattern="0" where="start" style-ref="comment"/>
         <context sub-pattern="0" where="end" style-ref="escaped"/>
         <context extend-parent="false">
-          <start>%\{[$^]?</start>
+          <start>%\{[$#^]?</start>
           <end>%\}</end>
           <include>
             <context sub-pattern="0" where="start" style-ref="escaped"/>
@@ -744,7 +749,7 @@
         <context sub-pattern="0" where="start" style-ref="comment"/>
         <context sub-pattern="0" where="end" style-ref="escaped"/>
         <context extend-parent="false">
-          <start>%\{[$^]?</start>
+          <start>%\{[$#^]?</start>
           <end>%\}</end>
           <include>
             <context sub-pattern="0" where="start" style-ref="escaped"/>
@@ -755,7 +760,7 @@
     </context>
 
     <context id="extern-unknown" style-ref="preprocessor">
-      <start>%\{[$^]?</start>
+      <start>%\{[$#^]?</start>
       <end>%\}</end>
       <include>
         <context sub-pattern="0" where="start" style-ref="escaped"/>
@@ -839,10 +844,19 @@
 
     <context id="symbolic-operator-3" style-ref="operator">
       <match extended="true">
+        =\+\+     |
         --=       |
         --!       |
+        :=-       |
+        :=:       |
+        :=\/      |
+        :=\*      |
+        :=\+      |
+        :-=       |
+        :/=       |
+        :\*=      |
+        :\+=      |
         !\+\+     |
-        =\+\+     |
         =&lt;&gt; |
         <!-- =&gt;&gt; Also punctuator: conflict -->
       </match>
@@ -882,39 +896,28 @@
 
     <context id="punctuator-3" style-ref="punctuator">
       <match extended="true">
-        :=-   |
-        :=:   |
-        :=\/  |
-        :=\*  |
-        :=\+  |
-        :-=   |
-        :/=   |
-        :\*=  |
-        :\+=  |
-        %{\^  |
-        %{\$  |
-        %{\#  |
         =&gt;&gt;
       </match>
     </context>
 
     <context id="punctuator-2" style-ref="punctuator">
       <match extended="true">
+        :=        |
+        '{        |
+        '\(       |
+        @{        |
+        @\(       |
+        @\[       |
+        \?!       |
         \#\[      |
         %{        |
         %}        |
-        '\(       |
-        '{        |
-        :=        |
-        @\(       |
-        @\[       |
-        @{        |
         =&gt;     |
         -&gt;     |
         &gt;\.    |
         &gt;&lt;  |
         :&lt;     |
-        \.&lt;
+        \.&lt;    |
       </match>
     </context>
 
