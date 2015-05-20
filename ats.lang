@@ -525,6 +525,7 @@
         \%[val-                |
         \%[val\+               |
         \%[var\%]              |
+        \%[vbox\%]             |
         \%[\$vcopyenv_v\%]     |
         \%[\$vcopyenv_vt\%]    |
         \%[view@\%]            |
