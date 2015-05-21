@@ -601,6 +601,8 @@
         \%[ulint\%]         |
         \%[ullint\%]        |
         \%[view\%]          |
+        \%[view\+\%]        |
+        \%[view-\%]         |
         \%[viewtype\%]      |
         \%[viewtype\+       |
         \%[viewtype-        |
@@ -622,6 +624,9 @@
         \%[t\%{z}ype\%]     |
         \%[t\%{z}ype\+      |
         \%[t\%{z}ype-       |
+        \%[view\%]          |
+        \%[view\+           |
+        \%[view-            |
         \%[viewtype\+       |
         \%[viewtype-        |
         \%[viewt\%{z}ype\%] |
