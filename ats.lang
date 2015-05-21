@@ -493,6 +493,7 @@
         \%[prfn\%]             |
         \%[prfun\%]            |
         \%[primplement\%]      |
+        \%[primplmnt\%]        |
         \%[propdef\%]          |
         \%[prval\%]            |
         \%[prvar\%]            |
