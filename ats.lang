@@ -450,6 +450,7 @@
         \%[\$extype\%]         |
         \%[\$extype_struct\%]  |
         \%[fix\%]              |
+        \%[fix@\%]             |
         \%[fn\%]               |
         \%[fnx\%]              |
         \%[fold@\%]            |
