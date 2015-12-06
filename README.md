@@ -1,5 +1,6 @@
 ATS2 language support and integration
 =====================================
+Language support for GTKSourceView and integration in FreeDesktop environements.
 
 Installation on Linux environments
 ----------------------------------
