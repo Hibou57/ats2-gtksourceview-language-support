@@ -142,6 +142,6 @@ License
 See [LICENSE](LICENSE) file.
 
 <a href='https://pledgie.com/campaigns/30727'><img
-     alt='Donate to software development under BSD license at pledgie.com !'
+     alt='Donate to software development under MIT license at pledgie.com !'
      src='https://pledgie.com/campaigns/30727.png?skin_name=chrome'
      border='0' ></a>
