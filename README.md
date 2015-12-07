@@ -135,3 +135,13 @@ No language tag or an unknow language tag, makes the extern block content be col
 ### Filtering and reformating ATS messages
 
 There is a format filter to be used with pipes and/or redirection. You will find it as `ats-messages-filter.py`. You may refer to the instruction given in the file it‑self, for usage.
+
+License
+-------
+
+See [LICENSE](LICENSE) file.
+
+<a href='https://pledgie.com/campaigns/30727'><img
+     alt='Donate to software development under BSD license at pledgie.com !'
+     src='https://pledgie.com/campaigns/30727.png?skin_name=chrome'
+     border='0' ></a>
