@@ -3,7 +3,11 @@
 
 """Filter and reformat ATS messages, to suite typical editors messages pan.
 
-To use it, ensure you have a Python 3 interpreter available, move this
+Note: as of 2015 December, this filter is considered obsolete, and it is 
+suggested to use the one provide in this repository, instead: 
+[PostiATS-Utilities](https://github.com/Hibou57/PostiATS-Utilities).
+
+To use this, ensure you have a Python 3 interpreter available, move this
 file somewhere accessible according to your `${PATH}` and give this file the
 executable attribute. Optionally, remove the `*.py` extensions to make it more
 look like a typical command.
