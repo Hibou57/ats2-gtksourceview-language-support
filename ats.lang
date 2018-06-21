@@ -905,6 +905,18 @@
       </match>
     </context>
 
+    <context id="punctuator-5" style-ref="punctuator">
+      <match extended="true">
+        =\/=&gt;&gt;
+      </match>
+    </context>
+
+    <context id="punctuator-4" style-ref="punctuator">
+      <match extended="true">
+        =\/=&gt;
+      </match>
+    </context>
+
     <context id="punctuator-3" style-ref="punctuator">
       <match extended="true">
         =&gt;&gt;
@@ -961,14 +973,16 @@
         <context ref="symbol-special-case-2"/>
         <context ref="symbol-special-case-3"/>
         <context ref="symbolic-constant"/>
+        <context ref="punctuator-5"/>
         <context ref="symbolic-operator-5"/>
+        <context ref="punctuator-4"/>
         <context ref="symbolic-operator-4"/>
-        <context ref="symbolic-operator-3"/>
         <context ref="punctuator-3"/>
-        <context ref="symbolic-operator-2"/>
+        <context ref="symbolic-operator-3"/>
         <context ref="punctuator-2"/>
-        <context ref="symbolic-operator-1"/>
+        <context ref="symbolic-operator-2"/>
         <context ref="punctuator-1"/>
+        <context ref="symbolic-operator-1"/>
       </include>
     </context>
 
