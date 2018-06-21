@@ -371,6 +371,7 @@
           absvtype         |
           absviewtype      |
           absvt\%{z}ype    |
+          absviewt\%{z}ype |
           absviewt0ype     |
           classdec         |
           dataprop         |
@@ -447,6 +448,7 @@
         \%[\$extfcall\%]       |
         \%[\$extkind\%]        |
         \%[\$extval\%]         |
+        \%[extvar\%]           |
         \%[\$extype\%]         |
         \%[\$extype_struct\%]  |
         \%[fix\%]              |
@@ -459,6 +461,7 @@
         \%[free@\%]            |
         \%[fun\%]              |
         \%[if\%]               |
+        \%[implmnt\%]          |
         \%[implement\%]        |
         \%[import\%]           |
         \%[in\%]               |
@@ -498,6 +501,7 @@
         \%[prval\%]            |
         \%[prvar\%]            |
         \%[\$raise\%]          |
+        \%[reassume\%]         |
         \%[rec\%]              |
         \%[\$rec\%]            |
         \%[\$rec_t\%]          |
