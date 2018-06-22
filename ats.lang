@@ -185,10 +185,6 @@
     <!-- Strings -->
     <!-- ================================================================= -->
 
-    <context id="string-eol-error" style-ref="error">
-      <start>[^"]+$</start>
-    </context>
-
     <define-regex id="escaped-good" extended="true">
       \\\%{ec}|\\\%{od}{3}|\\\%{hp}\%{hd}{2}
     </define-regex>
@@ -241,7 +237,6 @@
       <start></start>
       <end></end>
       <include>
-        <context ref="string-eol-error"/>
         <context ref="string-character"/>
       </include>
     </context>
@@ -928,6 +923,7 @@
         :=        |
         '{        |
         '\(       |
+        '\[       |
         @{        |
         @\(       |
         @\[       |
