@@ -531,6 +531,7 @@
         \%[val-                |
         \%[val\+               |
         \%[var\%]              |
+        \%[\$vararg\%]         |
         \%[vbox\%]             |
         \%[\$vcopyenv_v\%]     |
         \%[\$vcopyenv_vt\%]    |
