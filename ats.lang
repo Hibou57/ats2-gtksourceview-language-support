@@ -586,6 +586,9 @@
         \%[int\%]           |
         \%[lint\%]          |
         \%[llint\%]         |
+        \%[prop\%]          |
+        \%[prop\+           |
+        \%[prop-            |
         \%[schar\%]         |
         \%[size_t\%]        |
         \%[ssize_t\%]       |
@@ -593,6 +596,10 @@
         \%[type\%]          |
         \%[type\+           |
         \%[type-            |
+        \%[t%{z}ype\%]      |
+        \%[t%{z}ype\+       |
+        \%[t%{z}ype-        |
+        \%[types\%]         |
         \%[t0p\%]           |
         \%[t\%{z}ype\%]     |
         \%[t\%{z}ype\+      |
@@ -602,8 +609,8 @@
         \%[ulint\%]         |
         \%[ullint\%]        |
         \%[view\%]          |
-        \%[view\+\%]        |
-        \%[view-\%]         |
+        \%[view\+           |
+        \%[view-            |
         \%[viewtype\%]      |
         \%[viewtype\+       |
         \%[viewtype-        |
