@@ -28,6 +28,9 @@
   History since it's on Github
   ============================
 
+  Since 2018, the history below is not maintained anymore, there are
+  just SVN revision comments on the repository.
+
   2015-05-21 00:58:01:
     * Added `?!`
     * Fixed `%{#`
@@ -398,6 +401,8 @@
     follows next to it without a space between, ex. in `val+foo = …` -->
     <context id="keyword" style-ref="keyword" class="no-spell-check">
       <match extended="true">
+        \%[absimpl\%]          |
+        \%[absreimpl\%]        |
         \%[abstype\%]          |
         \%[abst\%{z}ype\%]     |
         \%[absprop\%]          |
@@ -420,6 +425,7 @@
         \%[castfn\%]           |
         \%[classdec\%]         |
         \%[\$continue\%]       |
+        \%[\$d2ctype\%]        |
         \%[dataprop\%]         |
         \%[datasort\%]         |
         \%[datatype\%]         |
@@ -439,9 +445,11 @@
         \%[end\%]              |
         \%[exception\%]        |
         \%[extern\%]           |
+        \%[extype\%]           |
         \%[\$extern\%]         |
         \%[\$extfcall\%]       |
         \%[\$extkind\%]        |
+        \%[\$extmcall\%]       |
         \%[\$extval\%]         |
         \%[extvar\%]           |
         \%[\$extype\%]         |
@@ -456,6 +464,7 @@
         \%[free@\%]            |
         \%[fun\%]              |
         \%[if\%]               |
+        \%[ifcase\%]           |
         \%[implmnt\%]          |
         \%[implement\%]        |
         \%[import\%]           |
@@ -467,6 +476,7 @@
         \%[lam@\%]             |
         \%[\$ldelay\%]         |
         \%[let\%]              |
+        \%[\$literal\%]        |
         \%[llam\%]             |
         \%[local\%]            |
         \%[\$lst\%]            |
@@ -509,7 +519,10 @@
         \%[scase\%]            |
         \%[\$showtype\%]       |
         \%[sif\%]              |
+        \%[\$solver_assert\%]  |
+        \%[\$solver_verify\%]  |
         \%[sortdef\%]          |
+        \%[sta\%]              |
         \%[stacst\%]           |
         \%[stadef\%]           |
         \%[staload\%]          |
@@ -517,6 +530,7 @@
         \%[stavar\%]           |
         \%[symelim\%]          |
         \%[symintr\%]          |
+        \%[\$tempenver\%]      |
         \%[then\%]             |
         \%[tkindef\%]          |
         \%[try\%]              |
@@ -527,6 +541,7 @@
         \%[\$tuple_t\%]        |
         \%[\$tuple_vt\%]       |
         \%[typedef\%]          |
+        \%[\$tyrep\%]          |
         \%[val\%]              |
         \%[val-                |
         \%[val\+               |
@@ -879,6 +894,7 @@
     <context id="symbolic-operator-2" style-ref="operator">
       <match extended="true">
         ==         |
+        =&lt;      |
         --         |
         ::         |
         !=         |
@@ -898,7 +914,6 @@
         ~     |
         -     |
         !     |
-        @     |
         \/    |
         \*    |
         \+    |
@@ -922,7 +937,9 @@
 
     <context id="punctuator-3" style-ref="punctuator">
       <match extended="true">
-        =&gt;&gt;
+        =&gt;&gt; |
+        =&lt;&gt; |
+        -&lt;&gt;
       </match>
     </context>
 
@@ -959,6 +976,7 @@
         !     |
         {     |
         }     |
+        @     |
         \|    |
         \.    |
         \(    |
