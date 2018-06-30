@@ -514,7 +514,6 @@
         \%[\$record\%]         |
         \%[\$record_t\%]       |
         \%[\$record_vt\%]      |
-        \%[ref@\%]             |
         \%[scase\%]            |
         \%[\$showtype\%]       |
         \%[sif\%]              |
