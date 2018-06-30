@@ -515,7 +515,6 @@
         \%[\$record_t\%]       |
         \%[\$record_vt\%]      |
         \%[ref@\%]             |
-        \%[require\%]          |
         \%[scase\%]            |
         \%[\$showtype\%]       |
         \%[sif\%]              |
@@ -1052,13 +1051,20 @@
       <match extended="true">
         \#\%[(
           assert   |
+          codegen2 |
+          codegen3 |
+          dynload  |
           elif     |
           else     |
           endif    |
           error    |
           if       |
           then     |
-          print
+          pragma   |
+          prerr    |
+          print    |
+          require  |
+          staload
         )\%]
       </match>
     </context>
