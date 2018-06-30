@@ -297,21 +297,21 @@
     <!-- ================================================================= -->
 
     <context id="real-1" style-ref="float">
-      <match>~?\b\%{dd}+\.\%{dd}+(\%{de}-?\%{dd}+)?\b</match>
+      <match>~?\b\%{dd}+\.\%{dd}+(\%{de}-?\%{dd}+)?f?\b</match>
       <!-- Required decimal part and optional exponent part -->
     </context>
 
     <context id="real-2" style-ref="float">
-      <match>~?\b\%{dd}+(\.\%{dd}+)?\%{de}-?\%{dd}+\b</match>
+      <match>~?\b\%{dd}+(\.\%{dd}+)?\%{de}-?\%{dd}+f?\b</match>
       <!-- Optional decimal part and required exponent part -->
     </context>
 
     <context id="real-1-bad" style-ref="error">
-      <match>~?\b\%{dd}+\.\%{dd}*(\%{de}-?\%{dd}*)?\b</match>
+      <match>~?\b\%{dd}+\.\%{dd}*(\%{de}-?\%{dd}*)?f?\b</match>
     </context>
 
     <context id="real-2-bad" style-ref="error">
-      <match>~?\b\%{dd}+(\.\%{dd}*)?\%{de}-?\%{dd}*\b</match>
+      <match>~?\b\%{dd}+(\.\%{dd}*)?\%{de}-?\%{dd}*f?\b</match>
     </context>
 
     <context id="real-3-bad" style-ref="error">
